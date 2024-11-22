@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Nov 22 14:57:52 2024
+
+@author: JUSCH3
+"""
+
 
 """
 Author: Julius Schaaf
@@ -42,7 +49,7 @@ def saturation_pressure_water(T_K,P,use_effective=True):
     float: Saturation vapor pressure over water in Pa
     """
     # Coefficients for over water
-    a = [-6.0969385e+3, 2.214409642e+1, -2.711193e-2, 1.673952e-5, 2.433502, 1]
+    a = [-6.0969385e+3, 2.12409642e+1, -2.711193e-2, 1.673952e-5, 2.433502, 1]
 
     e_ws = math.exp(
         a[0] / T_K +
@@ -295,7 +302,9 @@ def dew_point_temperature(P_vapor, P_total):
         float: Dew point temperature in Kelvin.
     """
     def func(t):
-        return saturation_pressure_water(t, P) - P_vapor
+        return saturation_pressure_water(t, P_total) - P_vapor
+        # return saturation_vapor_pressure_water_Hardy(t, P_total) - P_vapor
+    
     # Temperature bounds (in Kelvin)
     t_lower = 273.15-50  # -50°C
     t_upper = 273.15+100  # 100°C
